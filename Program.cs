@@ -1,4 +1,6 @@
-﻿namespace NPCWorld
+﻿using System.Diagnostics.SymbolStore;
+
+namespace NPCWorld
 {
     internal class Program
     {
@@ -16,9 +18,34 @@
 
             //Tipp: Für das Inventory recherchieren zum Thema Listen bzw dynamische Listen
 
+            Console.ForegroundColor = ConsoleColor.Yellow;
+            
+            NPC enemy = new NPC(",", 300, "Kevin");
+            NPC vendor = new NPC(",",150,"Axel");
 
+            Console.WriteLine($"Hallo User! Gib bitte Deinen Namen ein: ");
+            string userName = Console.ReadLine();
 
+            //vendor.VendorDialog(userName);     // Test
 
+            while (true)
+            { 
+                Console.Clear();
+                Console.WriteLine($"Wähle eine Aktion:\n\t-1-{enemy.Name}\n\t-2-{vendor.Name}");
+                string input = Console.ReadLine();
+                if (input == "1") enemy.EnemyMenu();
+                else if (input == "2") vendor.VendorMenu(userName);
+                else
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Falsche Eingabe!");
+                    Console.ForegroundColor = ConsoleColor.DarkYellow;
+                    Console.WriteLine("\nTaste drücken zum fortsetzten");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.ReadKey();
+                }
+               
+            }
 
         }
     }
